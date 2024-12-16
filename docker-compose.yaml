@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    restart: always
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: docone.dockerfile
+    ports:
+      - "5555:5000"
+    depends_on:
+      - mysql
+  frontend:
+    restart: always
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: doctwo.dockerfile
+    ports:
+      - "8954:8954"
+  mysql:
+    restart: always
+    container_name: mysql
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: time_db 
+    ports:
+      - "3306:3306"
